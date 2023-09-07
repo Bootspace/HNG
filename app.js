@@ -29,7 +29,7 @@ const utcTime = now.utc().format();
 const file_url = 'https://github.com/Bootspace/HNG/blob/master/app.js';
 const github_repo_url = 'https://github.com/Bootspace/HNG'
 
-app.get('/api/date', (req, res) => {
+app.get('/api', (req, res) => {
   const { slack_name, track } = req.query;
   res.status(200).json({
     slack_name: req.query.slack_name,
