@@ -26,14 +26,18 @@ const now = moment();
 // const datas = {formattedDate};
 const day = now.format('dddd');
 const utcTime = now.utc().format();
+const file_url = 'https://github.com/Bootspace/HNG/blob/master/app.js';
+const github_repo_url = 'https://github.com/Bootspace/HNG'
 
 app.get('/api/date', (req, res) => {
-  const { name, track } = req.query;
+  const { slack_name, track } = req.query;
   res.status(200).json({
-    slack_name: req.query.name,
+    slack_name: req.query.slack_name,
     current_day: day,
     utc_time: utcTime,
     track: req.query.track,
+    github_file_url: file_url,
+    github_repo_url: github_repo_url,
     status_code: 200
     });
 });
