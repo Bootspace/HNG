@@ -6,35 +6,19 @@ const port = process.env.PORT || 2323;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const now = moment();
-
-// const options = {
-//   year: 'numeric',
-//   month: 'long',
-//   weekday: 'long',
-//   day:'numeric',
-//   hour: '2-digit',
-//   minute: '2-digit',
-//   second: '2-digit',
-//   hour12: false, // Use 24-hour format
-//   timeZoneName: 'short'
-// };
-
-// const formattedDate = new Intl.DateTimeFormat('en-US', options).format(currentTime);
-// // console.log("Formatted Date and Time: " + formattedDate);
-// console.log(typeof(formattedDate));
-// const datas = {formattedDate};
-const day = now.format('dddd');
-const utcTime = now.utc().format();
-const file_url = 'https://github.com/Bootspace/HNG/blob/master/app.js';
-const github_repo_url = 'https://github.com/Bootspace/HNG'
 
 app.get('/api', (req, res) => {
+  const now = moment();
+  const day = now.format('dddd');
+  // const utcTime = now.utc().format();
+  const file_url = 'https://github.com/Bootspace/HNG/blob/master/app.js';
+  const github_repo_url = 'https://github.com/Bootspace/HNG'
+
   const { slack_name, track } = req.query;
   res.status(200).json({
     slack_name: req.query.slack_name,
     current_day: day,
-    utc_time: utcTime,
+    utc_time: now.utc().format(),
     track: req.query.track,
     github_file_url: file_url,
     github_repo_url: github_repo_url,
