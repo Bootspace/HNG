@@ -257,6 +257,7 @@ Returns the errors as an array
 }
 ```
 - For additional information regarding the sample usage of this API, please refer to the documentation available at this [link](https://documenter.getpostman.com/view/24111452/2s9YC2yYe3)
+
 ##  Security Measures Taken
 ### Preventing NoSQL Injection?
 In the development of the Person API, I prioritize security as a fundamental aspect of my design and implementation. I understand the potential threats that can target web applications, and one of the critical security measures I've implemented is the use of express-mongo-sanitize. This library plays a pivotal role in safeguarding the API against NoSQL injection attacks.
@@ -265,6 +266,7 @@ In the development of the Person API, I prioritize security as a fundamental asp
 
 NoSQL injection is a prevalent security issue in applications that interact with NoSQL databases like MongoDB. Attackers can inject malicious code into database queries, potentially leading to unauthorized access, data breaches, and other malicious activities. It's crucial to protect our API against these threats.
 
+```
 const mongoSanitize = require('express-mongo-sanitize');
 
 // Data sanitization against NOSQL query Injection
