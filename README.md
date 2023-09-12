@@ -24,9 +24,7 @@ This repo was created in line with the HNGX Internships tasks.
 | Person   | 
 | -------- | 
 | ID -Pk   |
-| First Name - String |
-| Last Name - String |
-| Email - String |
+| Name - String |
 |_________________
 | Create()  |
 | Read() |
@@ -47,89 +45,18 @@ If you are using a local server, the base url will be `http://localhost:2323`.
 ## API Endpoints
 | Endpoint | Functionality | Description | HTTP method |
 | --- | --- | --- | --- |
-| `/api/person` | Get All | Get all persons in the database | `GET` |
-| `/api/person` | Create | Create a new person | `POST` |
-| `/api/person/:criteria` | Read | Get a single person | `GET` |
-| `/api/person/:id` | Update | Update a single person | `PATCH` |
-| `/api/person/:id` | Delete | Delete a single person | `DELETE` |
-
-## Get all persons in the database
-- Endpoint: `/api/person`
-- HTTP method: `GET`
-- Description: Get all persons in the database
-- Example Response(success):
-```json
-{
-    "status": "success",
-    "result": 4,
-    "data": {
-        "people": [
-            {
-                "_id": "64fefbc070d200e006bc0622",
-                "firstname": "Mark",
-                "lastname": "Essien",
-                "email": "mark10@gmail.com",
-                "createdAt": "2023-09-11T11:36:32.400Z",
-                "updatedAt": "2023-09-11T11:36:32.400Z",
-                "__v": 0,
-                "fullname": "Mark Essien",
-                "id": "64fefbc070d200e006bc0622"
-            },
-            {
-                "_id": "64fefc7a70d200e006bc0628",
-                "firstname": "Seun",
-                "lastname": "Alabi",
-                "email": "alabisureboy@gmail.com",
-                "createdAt": "2023-09-11T11:39:38.557Z",
-                "updatedAt": "2023-09-11T11:39:38.557Z",
-                "__v": 0,
-                "fullname": "Seun Alabi",
-                "id": "64fefc7a70d200e006bc0628"
-            },
-            {
-                "_id": "64ff00a5eed30a10a384fdd3",
-                "firstname": "Joanna",
-                "lastname": "Briggs",
-                "email": "Sugarbellw@gmail.com",
-                "createdAt": "2023-09-11T11:57:25.936Z",
-                "updatedAt": "2023-09-11T11:57:25.936Z",
-                "__v": 0,
-                "fullname": "Joanna Briggs",
-                "id": "64ff00a5eed30a10a384fdd3"
-            },
-            {
-                "_id": "64ff0437eed30a10a384fdd8",
-                "firstname": "Sam",
-                "lastname": "Harris",
-                "email": "SamHarris@gmail.com",
-                "createdAt": "2023-09-11T12:12:39.176Z",
-                "updatedAt": "2023-09-11T12:12:39.176Z",
-                "__v": 0,
-                "fullname": "Sam Harris",
-                "id": "64ff0437eed30a10a384fdd8"
-            }
-        ]
-    }
-}
-```
-- Example Response(error): - This can occur if there is no registered person on the database
-Returns an empty array
-```json
-{
-    "status": "success",
-    "message": "People list is empty"
-}
-```
+| `/api/` | Create | Create a new person | `POST` |
+| `/api/:id` | Read | Get a single person | `GET` |
+| `/api/:id` | Update | Update a single person | `PUT` |
+| `/api/:id` | Delete | Delete a single person | `DELETE` |
 
 ### Create a new person
-- Endpoint: `/api/person`
+- Endpoint: `/api`
 - HTTP method: `POST`
 
 ```json
 {
-    "firstname":"Sam",
-    "lastname":"Harris",
-    "email":"SamHarris@gmail.com"
+    "name":"Jack Essien",
 }
 ```
 - Example Response(success):
@@ -137,16 +64,9 @@ Returns an empty array
 {
     "status": "success",
     "data": {
-        "newPerson": {
-            "firstname": "Sam",
-            "lastname": "Harris",
-            "email": "SamHarris@gmail.com",
-            "_id": "64ff0437eed30a10a384fdd8",
-            "createdAt": "2023-09-11T12:12:39.176Z",
-            "updatedAt": "2023-09-11T12:12:39.176Z",
-            "__v": 0,
-            "fullname": "Sam Harris",
-            "id": "64ff0437eed30a10a384fdd8"
+        "response": {
+            "id": "6500ce2759912b3da80af70b",
+            "name": "Jack Essien"
         }
     }
 }
@@ -158,14 +78,9 @@ Returns the errors as an array
     "errors": [
         {
             "type": "field",
-            "msg": "Invalid value",
-            "path": "lastname",
-            "location": "body"
-        },
-        {
-            "type": "field",
+            "value": "",
             "msg": "Email must be a string and must not be empty",
-            "path": "lastname",
+            "path": "name",
             "location": "body"
         }
     ]
@@ -174,7 +89,7 @@ Returns the errors as an array
 
 
 ## Retrieve a User by ID
-- Endpoint: `/api/person/:criteria`
+- Endpoint: `/api/:id`
 - HTTP method: `GET`
 - Description: Get a single person by id
 - Example Response(success):
@@ -182,16 +97,9 @@ Returns the errors as an array
 {
     "status": "success",
     "data": {
-        "person": {
-            "_id": "64ff05bbeed30a10a384fde6",
-            "firstname": "Sam",
-            "lastname": "Harris",
-            "email": "SamHarris@gmail.com",
-            "createdAt": "2023-09-11T12:19:07.753Z",
-            "updatedAt": "2023-09-11T12:19:07.753Z",
-            "__v": 0,
-            "fullname": "Sam Harris",
-            "id": "64ff05bbeed30a10a384fde6"
+        "response": {
+            "id": "6500cea259912b3da80af70f",
+            "name": "Jack Essien"
         }
     }
 }
@@ -205,15 +113,15 @@ Returns the errors as an array
 ```
 
 ## Update a User by ID
-- Endpoint: `/api/person/:id`
-- HTTP method: `PATCH`
+- Endpoint: `/api/:id`
+- HTTP method: `PUT`
 - Description: Update a single person by id
 - Path Parameter: `id` (type.objectID, required)
 - Request body: `name` (string, required)
 - Request body example:
 ```json
 {
-    "lastname":"Ascunsio"
+    "name":"Silas Manner"
 }
 ```
 - Example Response(success):
@@ -221,16 +129,9 @@ Returns the errors as an array
 {
     "status": "success",
     "data": {
-        "person": {
-            "_id": "64fefbc070d200e006bc0622",
-            "firstname": "Mark",
-            "lastname": "Ascunsio",
-            "email": "mark10@gmail.com",
-            "createdAt": "2023-09-11T11:36:32.400Z",
-            "updatedAt": "2023-09-11T12:14:53.661Z",
-            "__v": 0,
-            "fullname": "Mark Ascunsio",
-            "id": "64fefbc070d200e006bc0622"
+        "response": {
+            "id": "6500cea259912b3da80af70f",
+            "name": "Silas Manner"
         }
     }
 }
@@ -244,7 +145,7 @@ Returns the errors as an array
 ```
 ```
 ## Delete a User by ID
-- Endpoint: `/api/person/:id`
+- Endpoint: `/api/:id`
 - HTTP method: `DELETE`
 - Description: Delete a single person by id
 - Path Parameter: `id` (types.objectID, required)

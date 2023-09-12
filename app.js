@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 
-const taskOneRoute = require('./routes/taskOne');
 const personRoute = require('./routes/personRoute');
 
 // Set security HTTP headers
@@ -27,10 +26,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.use(taskOneRoute);
 app.use(personRoute);
 
-app.use('/', (req,res) => {
+app.get('/', (req,res) => {
   res.send('Welcome to HNG')
 });
 
