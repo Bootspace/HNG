@@ -10,13 +10,16 @@ exports.create= async(req, res)=> {
     }
 
     const newPerson = await Person.create(req.body);
+    const response = {
+      id: newPerson._id,
+      name: newPerson.name
+    }
 
-    console.log(newPerson);
-
+    console.log(response);
     return res.status(201).json({
       status: 'success',
       data: {
-        newPerson
+        response
       }
     })
     
@@ -28,42 +31,10 @@ exports.create= async(req, res)=> {
   }
 };
 
-exports.getPeople = async(req,res) => {
-  try {
-    const people = await Person.find();
-    if(people.length === 0){
-      return res.status(200).json({
-        status: 'success',
-        message: "People list is empty"
-      })
-    };
-
-    return res.status(200).json({
-      status: 'success',
-      result: people.length,
-      data: {
-        people
-      }
-    })
-
-  } catch (error) {
-    return res.status(500).json({
-      status: 'failed',
-      message: error.message
-    })
-  }
-}
-
 exports.getPerson = async(req, res) => {
   try {
-    const query = req.params.criteria
 
-    const person = await Person.findOne({
-      $or: [
-        { firstname: new RegExp(query,'i')},
-        { lastname: new RegExp(query,'i') }
-      ]
-     });
+    const person = await Person.findById(req.params.id)
 
     if(!person) {
       return res.status(404).json({
@@ -72,10 +43,15 @@ exports.getPerson = async(req, res) => {
       })
     }
 
+    const response = {
+      id: person._id,
+      name: person.name
+    }
+
     return res.status(200).json({
       status: 'success',
       data: {
-        person
+        response
       }
     })
 
@@ -103,10 +79,15 @@ exports.update= async(req, res) => {
       })
     };
 
+    const response = {
+      id: person._id,
+      name: person.name
+    }
+
     return res.status(200).json({
       status: 'success',
       data: {
-        person
+        response
       }
     })
     
